@@ -32,9 +32,11 @@ services:
     build: .
     container_name: pcap-analyzer
     environment:
-      - ES_URL=http://elasticsearch:9200
-      - MAX_PACKETS=0
+      - ELASTIC_URL=http://elasticsearch:9200
+      - ELASTIC_INDEX=pcap-packets
       - PCAP_PATH=sample.pcap
+      - MAX_PACKETS=0
+      - ELASTIC_MAX_RETRIES=3
     depends_on:
       elasticsearch:
         condition: service_healthy
