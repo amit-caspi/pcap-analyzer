@@ -1,0 +1,2 @@
+scapy
+elasticsearch==8.12.0
