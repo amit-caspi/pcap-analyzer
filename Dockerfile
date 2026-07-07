@@ -14,6 +14,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application source code and the PCAP file
 COPY analyzer.py .
 COPY sample.pcap .
+COPY test_analyzer.py .
+
+# UNIT TEST: Automatically run the tests during the build process
+RUN python -m unittest test_analyzer.py
 
 # Define the default command to execute the script
 CMD ["python", "analyzer.py"]

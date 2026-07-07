@@ -78,6 +78,13 @@ def send_bulk_with_retry(es_client, actions):
             print("[*] Retrying in 2 seconds...")
             time.sleep(2)
 
+def format_timestamp(raw_timestamp):
+    """
+    Converts a raw epoch timestamp into an ISO 8601 format string required by Elasticsearch.
+    """
+    milliseconds = int(round((raw_timestamp % 1) * 1000))
+    return time.strftime('%Y-%m-%dT%H:%M:%S', time.gmtime(raw_timestamp)) + f".{milliseconds:03d}Z" 
+
 def analyze_pcap(file_path, max_packets=None):
     """
     Parses a PCAP file and ingests its packets into Elasticsearch.
@@ -112,8 +119,7 @@ def analyze_pcap(file_path, max_packets=None):
             raw_timestamp = float(packet.time)
             packet_length = len(packet)
             
-            # Convert epoch timestamp to ISO 8601 format for Elasticsearch. 
-            formatted_time = time.strftime('%Y-%m-%dT%H:%M:%S', time.gmtime(raw_timestamp)) + f".{int((raw_timestamp % 1) * 1000):03d}Z"
+            formatted_time = format_timestamp(raw_timestamp)
             
             src_ip = "N/A"
             dst_ip = "N/A"
