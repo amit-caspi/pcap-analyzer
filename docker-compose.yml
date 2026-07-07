@@ -45,3 +45,12 @@ services:
     depends_on:
       elasticsearch:
         condition: service_healthy
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: pcap-prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+

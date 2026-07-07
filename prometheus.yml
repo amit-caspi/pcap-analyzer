@@ -1,0 +1,12 @@
+# =================================================================
+# Prometheus Configuration File
+# This file tells Prometheus which services to scrape for metrics and how often.
+# =================================================================
+
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'pcap-analyzer'
+    static_configs:
+      - targets: ['pcap-analyzer:9100']
