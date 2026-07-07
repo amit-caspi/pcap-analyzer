@@ -1,2 +1,3 @@
 scapy
 elasticsearch==8.12.0
+prometheus-client==0.20.0

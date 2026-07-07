@@ -37,6 +37,11 @@ services:
       - PCAP_PATH=sample.pcap
       - MAX_PACKETS=0
       - ELASTIC_MAX_RETRIES=3
+      - METRICS_PORT=9100
+      - METRICS_SERVER_TIMEOUT_SEC=600
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "9100:9100"
     depends_on:
       elasticsearch:
         condition: service_healthy
