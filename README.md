@@ -131,6 +131,7 @@ This is a sample JSON document representing a single processed packet, as stored
     ]
   }
 }
+```
 
 ## 🔍 Data Integrity Verification
 
