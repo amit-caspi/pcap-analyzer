@@ -57,13 +57,11 @@ The system behavior is controlled via environment variables defined in the `dock
    docker compose logs -f analyzer
 
 ### 🌐 Accessing the Services & Metrics
-Once the containers are up, you can access the following services to monitor the system:
-
-| Service | Port | Access URL | What to check/see? |
-| :--- | :--- | :--- | :--- |
-| **Kibana** | `5601` | http://127.0.0.1:5601 | Visualize packet data, search logs, and view traffic distribution. |
-| **Prometheus** | `9090` | http://127.0.0.1:9090 | Verify the analyzer target is `UP` under *Status > Targets*. |
-| **Metrics Endpoint** | `9100` | http://127.0.0.1:9100/metrics | View raw real-time metrics (counters and gauges). |
+| Service | Port | Access URL | What to check/see? | Preview |
+| :--- | :--- | :--- | :--- | :--- |
+| **Kibana** | `5601` | http://127.0.0.1:5601 |  Visualize packet data, search logs, and view traffic distribution. | [👁️](images/kibana-protocols.png) |
+| **Prometheus** | `9090` | http://127.0.0.1:9090 | Verify target is `UP` & execute queries. | [👁️](images/prometheus1-up.png) &nbsp; & [👁️](images/prometheus2-protocols.png) |
+| **Metrics Endpoint** | `9100` | http://127.0.0.1:9100/metrics | View raw real-time metrics. | [👁️](images/metricsEndpoint.png) |
 
 **Health Checks & Bulk Status:**
 
@@ -139,5 +137,5 @@ To ensure the accuracy of our packet parsing, we compared a single packet's data
 
 | Raw Packet (Wireshark) | Processed Data (Kibana) |
 | :--- | :--- |
-| ![Wireshark](images/Wireshark.png) | ![Kibana](images/Kibana.png) |
+| ![Wireshark](images/Raw_Packet(Wireshark).png) | ![Kibana](images/Processed_Data(Kibana).png) |
 
