@@ -138,5 +138,5 @@ To ensure the accuracy of our packet parsing, we compared a single packet's data
 
 | Raw Packet (Wireshark) | Processed Data (Kibana) |
 | :--- | :--- |
-| ![Wireshark](images/Raw Packet (Wireshark).png) | ![Kibana](images/Processed Data (Kibana).png) |
+| ![Wireshark](images/Wireshark.png) | ![Kibana](images/Kibana.png) |
 
