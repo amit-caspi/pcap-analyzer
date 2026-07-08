@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+      image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
+      container_name: pcap-elasticsearch
+      environment:
+        - discovery.type=single-node
+        - xpack.security.enabled=false
+        - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      mem_limit: 4g                     
+      ports:
+        - "9200:9200"
+      healthcheck:
+        test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -q 'status.*green\\|yellow'"]
+        interval: 10s
+        timeout: 5s
+        retries: 3
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.12.2
+    container_name: pcap-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  analyzer:
+    build: .
+    container_name: pcap-analyzer
+    environment:
+      - ELASTIC_URL=http://elasticsearch:9200
+      - ELASTIC_INDEX=pcap-packets
+      - PCAP_PATH=sample.pcap
+      - MAX_PACKETS=0
+      - ELASTIC_MAX_RETRIES=3
+      - METRICS_PORT=9100
+      - METRICS_SERVER_TIMEOUT_SEC=600
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "9100:9100"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: pcap-prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
